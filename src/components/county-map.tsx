@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export type CountyDatum = {
   code: string;
@@ -15,6 +15,15 @@ export type CountyDatum = {
   riskZone: string;
   population: number;
 };
+
+type Geo = {
+  features: Array<{
+    properties: { code: number; name: string };
+    geometry: { type: "Polygon" | "MultiPolygon"; coordinates: number[][][] | number[][][][] };
+  }>;
+};
+
+type Shape = { code: number; name: string; d: string; cx: number; cy: number; size: number };
 
 const METRICS = {
   lossRatio: { label: "Loss ratio", unit: "%", key: (c: CountyDatum) => c.lossRatio, fmt: (v: number) => `${v.toFixed(1)}%` },
@@ -45,20 +54,64 @@ function colorFor(t: number): string {
   return "rgb(244,63,94)";
 }
 
+// Equirectangular projection fitted to Kenya's bounding box (1 degree = 100 units).
+const MIN_LON = 33.8;
+const MAX_LAT = 5.2;
+const MIN_LAT = -4.8;
+const MAX_LON = 42.0;
+const K = Math.cos((0.2 * Math.PI) / 180);
+const VB_W = Math.round((MAX_LON - MIN_LON) * K * 100);
+const VB_H = Math.round((MAX_LAT - MIN_LAT) * 100);
+
+function px([lon, lat]: number[]): [number, number] {
+  return [(lon - MIN_LON) * K * 100, (MAX_LAT - lat) * 100];
+}
+
+function buildShape(f: Geo["features"][number]): Shape {
+  const polys = (f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates) as number[][][][];
+  let d = "";
+  let best = { area: -1, cx: 0, cy: 0, w: 0, h: 0 };
+  for (const rings of polys) {
+    rings.forEach((ring, idx) => {
+      const pts = ring.map(px);
+      d += "M" + pts.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join("L") + "Z";
+      if (idx === 0) {
+        const xs = pts.map((p) => p[0]);
+        const ys = pts.map((p) => p[1]);
+        const w = Math.max(...xs) - Math.min(...xs);
+        const h = Math.max(...ys) - Math.min(...ys);
+        if (w * h > best.area) best = { area: w * h, cx: (Math.max(...xs) + Math.min(...xs)) / 2, cy: (Math.max(...ys) + Math.min(...ys)) / 2, w, h };
+      }
+    });
+  }
+  return { code: f.properties.code, name: f.properties.name, d, cx: best.cx, cy: best.cy, size: Math.min(best.w, best.h) };
+}
+
 export function CountyTileMap({ counties }: { counties: CountyDatum[] }) {
   const [metric, setMetric] = useState<MetricKey>("lossRatio");
   const [hover, setHover] = useState<CountyDatum | null>(null);
   const [selected, setSelected] = useState<CountyDatum | null>(null);
+  const [shapes, setShapes] = useState<Shape[] | null>(null);
   const m = METRICS[metric];
 
-  const { cols, rows, min, max } = useMemo(() => {
-    const vals = counties.map(m.key);
-    return {
-      cols: Math.max(...counties.map((c) => c.gx)) + 1,
-      rows: Math.max(...counties.map((c) => c.gy)) + 1,
-      min: Math.min(...vals),
-      max: Math.max(...vals),
+  useEffect(() => {
+    let alive = true;
+    fetch("/kenya-counties.json")
+      .then((r) => r.json())
+      .then((g: Geo) => {
+        if (alive) setShapes(g.features.map(buildShape));
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
     };
+  }, []);
+
+  const byCode = useMemo(() => new Map(counties.map((c) => [Number(c.code), c])), [counties]);
+
+  const { min, max } = useMemo(() => {
+    const vals = counties.map(m.key);
+    return { min: Math.min(...vals), max: Math.max(...vals) };
   }, [counties, m]);
 
   const active = selected ?? hover;
@@ -77,37 +130,52 @@ export function CountyTileMap({ counties }: { counties: CountyDatum[] }) {
             {METRICS[k].label}
           </button>
         ))}
-        <span className="mono ml-auto text-[10px] text-slate-600">tile-grid choropleth · 47 counties · {m.fmt(min)} → {m.fmt(max)}</span>
+        <span className="mono ml-auto text-[10px] text-slate-600">
+          county choropleth · 47 counties · {m.fmt(min)} → {m.fmt(max)}
+        </span>
       </div>
 
       <div className="flex flex-col gap-3 lg:flex-row">
         <div className="relative min-w-0 flex-1">
-          <div className="grid gap-[3px]" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`, gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))` }}>
-            {counties.map((c) => {
-              const v = m.key(c);
-              const t = max > min ? (v - min) / (max - min) : 0.5;
-              const on = active?.code === c.code;
-              return (
-                <button
-                  key={c.code}
-                  onMouseEnter={() => setHover(c)}
-                  onMouseLeave={() => setHover(null)}
-                  onClick={() => setSelected(c)}
-                  style={{
-                    gridColumnStart: c.gx + 1,
-                    gridRowStart: c.gy + 1,
-                    background: colorFor(t),
-                    opacity: active && !on ? 0.55 : 1,
-                  }}
-                  className={`mono relative flex aspect-square flex-col items-center justify-center rounded-[5px] text-slate-950 transition-all ${on ? "scale-[1.09] ring-2 ring-white/80" : "hover:scale-[1.06]"} ${v === 0 ? "bg-slate-800 text-slate-500" : ""}`}
-                  title={`${c.name}: ${m.fmt(v)}`}
-                >
-                  <span className="text-[9px] leading-none font-bold opacity-80">{c.code}</span>
-                  <span className="mt-0.5 max-w-full truncate px-0.5 text-[8.5px] leading-none font-semibold">{c.name.slice(0, 9)}</span>
-                </button>
-              );
-            })}
-          </div>
+          {!shapes ? (
+            <p className="mono py-24 text-center text-[11px] text-slate-500">loading map…</p>
+          ) : (
+            <svg viewBox={`0 0 ${VB_W} ${VB_H}`} className="mx-auto h-auto max-h-[78vh] w-full" role="img" aria-label="Map of Kenya by county" onClick={() => setSelected(null)}>
+              {shapes.map((s) => {
+                const c = byCode.get(s.code);
+                const v = c ? m.key(c) : 0;
+                const t = max > min ? (v - min) / (max - min) : 0.5;
+                const on = !!c && active?.code === c.code;
+                return (
+                  <path
+                    key={s.code}
+                    d={s.d}
+                    fill={c && v !== 0 ? colorFor(t) : "#1e293b"}
+                    stroke={on ? "#ffffff" : "#05070e"}
+                    strokeWidth={on ? 3 : 1.2}
+                    strokeLinejoin="round"
+                    opacity={active && !on ? 0.55 : 1}
+                    className="cursor-pointer transition-opacity"
+                    onMouseEnter={() => c && setHover(c)}
+                    onMouseLeave={() => setHover(null)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (c) setSelected(selected?.code === c.code ? null : c);
+                    }}
+                  >
+                    <title>{c ? `${c.name}: ${m.fmt(v)}` : s.name}</title>
+                  </path>
+                );
+              })}
+              {shapes
+                .filter((s) => s.size > 38)
+                .map((s) => (
+                  <text key={`t${s.code}`} x={s.cx} y={s.cy} textAnchor="middle" dominantBaseline="middle" fontSize={13} fontWeight={700} fill="#05070e" fillOpacity={0.75} pointerEvents="none" className="mono">
+                    {String(s.code).padStart(3, "0")}
+                  </text>
+                ))}
+            </svg>
+          )}
         </div>
 
         <div className="w-full shrink-0 lg:w-[228px]">
@@ -141,7 +209,7 @@ export function CountyTileMap({ counties }: { counties: CountyDatum[] }) {
               </>
             ) : (
               <div className="py-6 text-center">
-                <p className="text-[11.5px] text-slate-400">Hover or tap a county tile</p>
+                <p className="text-[11.5px] text-slate-400">Hover or tap a county</p>
                 <p className="mono mt-1 text-[10px] text-slate-600">drill into county-level insurance risk</p>
               </div>
             )}
