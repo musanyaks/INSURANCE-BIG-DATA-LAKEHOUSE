@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 import { Shell } from "@/components/shell";
@@ -6,6 +6,12 @@ import { BootstrapScreen } from "@/components/bootstrap-screen";
 import { isSeeded } from "@/lib/seed";
 
 export const dynamic = "force-dynamic";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#05070e",
+};
 
 export const metadata: Metadata = {
   title: "INSURELAKE — Enterprise Insurance Big Data Lakehouse & Actuarial Intelligence Platform",
