@@ -5,3 +5,45 @@ node_modules
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+.venv/
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# Environment & secrets
+.env
+*.pem
+
+# Lakehouse data (regenerate with `make demo-data`)
+lakehouse/*
+!lakehouse/.gitkeep
+
+# dbt
+dbt/target/
+dbt/logs/
+dbt/profiles.yml
+
+# Model binaries (regenerate with `make ml-train`)
+ml/models/*.joblib
+ml/models/*.pkl
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Notebooks
+.ipynb_checkpoints/
+*.tar.gz
+
+.venv/
+.env
