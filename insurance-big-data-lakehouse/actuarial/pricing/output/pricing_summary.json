@@ -1,0 +1,10 @@
+{
+  "method": "frequency(severity) GLM pure-premium indication",
+  "target_loss_ratio": 0.68,
+  "segments": 15,
+  "increases": 15,
+  "decreases": 0,
+  "max_adequacy_index": 14.387,
+  "min_adequacy_index": 4.02,
+  "portfolio_indicated_change_pct": 848.37
+}

@@ -1,0 +1,229 @@
+{
+  "pipelines": {
+    "claims": [
+      "kafka:claims-events",
+      "landing/stream/claims",
+      "bronze.claims",
+      "silver.claims",
+      [
+        "gold.claims_daily",
+        "gold.policy_performance",
+        "gold.fraud_scores"
+      ]
+    ],
+    "payments": [
+      "kafka:payments-events",
+      "landing/stream/payments",
+      "bronze.payments",
+      "silver.payments",
+      [
+        "gold.customer_360",
+        "gold.portfolio_kpis"
+      ]
+    ],
+    "telematics": [
+      "kafka:telematics-pings",
+      "landing/stream/telematics",
+      "bronze.telematics",
+      "silver.telematics",
+      [
+        "gold.telematics_behavior",
+        "gold.policy_performance"
+      ]
+    ],
+    "fraud": [
+      "kafka:fraud-alerts",
+      "landing/stream/fraud",
+      "bronze.fraud",
+      [
+        "silver.fraud_alerts",
+        "gold.fraud_scores"
+      ]
+    ],
+    "policies_db": [
+      "postgres:policies",
+      "landing/database/policies",
+      "bronze.policies",
+      "silver.policies",
+      [
+        "gold.policy_performance",
+        "gold.customer_360",
+        "gold.portfolio_kpis"
+      ]
+    ],
+    "customers_db": [
+      "postgres:customers",
+      "landing/database/customers",
+      "bronze.customers",
+      "silver.customers",
+      "gold.customer_360"
+    ],
+    "adjuster_notes": [
+      "legacy_csv",
+      "landing/files/adjuster_notes",
+      "(bronze.files)"
+    ]
+  },
+  "edges": [
+    {
+      "from": "kafka:claims-events",
+      "to": "landing/stream/claims",
+      "pipeline": "claims"
+    },
+    {
+      "from": "landing/stream/claims",
+      "to": "bronze.claims",
+      "pipeline": "claims"
+    },
+    {
+      "from": "bronze.claims",
+      "to": "silver.claims",
+      "pipeline": "claims"
+    },
+    {
+      "from": "silver.claims",
+      "to": "gold.claims_daily",
+      "pipeline": "claims"
+    },
+    {
+      "from": "silver.claims",
+      "to": "gold.policy_performance",
+      "pipeline": "claims"
+    },
+    {
+      "from": "silver.claims",
+      "to": "gold.fraud_scores",
+      "pipeline": "claims"
+    },
+    {
+      "from": "kafka:payments-events",
+      "to": "landing/stream/payments",
+      "pipeline": "payments"
+    },
+    {
+      "from": "landing/stream/payments",
+      "to": "bronze.payments",
+      "pipeline": "payments"
+    },
+    {
+      "from": "bronze.payments",
+      "to": "silver.payments",
+      "pipeline": "payments"
+    },
+    {
+      "from": "silver.payments",
+      "to": "gold.customer_360",
+      "pipeline": "payments"
+    },
+    {
+      "from": "silver.payments",
+      "to": "gold.portfolio_kpis",
+      "pipeline": "payments"
+    },
+    {
+      "from": "kafka:telematics-pings",
+      "to": "landing/stream/telematics",
+      "pipeline": "telematics"
+    },
+    {
+      "from": "landing/stream/telematics",
+      "to": "bronze.telematics",
+      "pipeline": "telematics"
+    },
+    {
+      "from": "bronze.telematics",
+      "to": "silver.telematics",
+      "pipeline": "telematics"
+    },
+    {
+      "from": "silver.telematics",
+      "to": "gold.telematics_behavior",
+      "pipeline": "telematics"
+    },
+    {
+      "from": "silver.telematics",
+      "to": "gold.policy_performance",
+      "pipeline": "telematics"
+    },
+    {
+      "from": "kafka:fraud-alerts",
+      "to": "landing/stream/fraud",
+      "pipeline": "fraud"
+    },
+    {
+      "from": "landing/stream/fraud",
+      "to": "bronze.fraud",
+      "pipeline": "fraud"
+    },
+    {
+      "from": "bronze.fraud",
+      "to": "silver.fraud_alerts",
+      "pipeline": "fraud"
+    },
+    {
+      "from": "bronze.fraud",
+      "to": "gold.fraud_scores",
+      "pipeline": "fraud"
+    },
+    {
+      "from": "postgres:policies",
+      "to": "landing/database/policies",
+      "pipeline": "policies_db"
+    },
+    {
+      "from": "landing/database/policies",
+      "to": "bronze.policies",
+      "pipeline": "policies_db"
+    },
+    {
+      "from": "bronze.policies",
+      "to": "silver.policies",
+      "pipeline": "policies_db"
+    },
+    {
+      "from": "silver.policies",
+      "to": "gold.policy_performance",
+      "pipeline": "policies_db"
+    },
+    {
+      "from": "silver.policies",
+      "to": "gold.customer_360",
+      "pipeline": "policies_db"
+    },
+    {
+      "from": "silver.policies",
+      "to": "gold.portfolio_kpis",
+      "pipeline": "policies_db"
+    },
+    {
+      "from": "postgres:customers",
+      "to": "landing/database/customers",
+      "pipeline": "customers_db"
+    },
+    {
+      "from": "landing/database/customers",
+      "to": "bronze.customers",
+      "pipeline": "customers_db"
+    },
+    {
+      "from": "bronze.customers",
+      "to": "silver.customers",
+      "pipeline": "customers_db"
+    },
+    {
+      "from": "silver.customers",
+      "to": "gold.customer_360",
+      "pipeline": "customers_db"
+    },
+    {
+      "from": "legacy_csv",
+      "to": "landing/files/adjuster_notes",
+      "pipeline": "adjuster_notes"
+    },
+    {
+      "from": "landing/files/adjuster_notes",
+      "to": "(bronze.files)",
+      "pipeline": "adjuster_notes"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "feature": "log_claim_amount",
+    "importance": -0.04422
+  },
+  {
+    "feature": "prior_claims",
+    "importance": 0.03888
+  },
+  {
+    "feature": "log_premium",
+    "importance": 0.02764
+  },
+  {
+    "feature": "is_injury_peril",
+    "importance": 0.02036
+  },
+  {
+    "feature": "night_indicator",
+    "importance": 0.02027
+  },
+  {
+    "feature": "driving_score",
+    "importance": -0.01188
+  },
+  {
+    "feature": "payment_failure_rate",
+    "importance": -0.00636
+  },
+  {
+    "feature": "product_Motor",
+    "importance": -0.00534
+  },
+  {
+    "feature": "product_Home",
+    "importance": -0.00295
+  },
+  {
+    "feature": "product_Health",
+    "importance": 0.00175
+  }
+]

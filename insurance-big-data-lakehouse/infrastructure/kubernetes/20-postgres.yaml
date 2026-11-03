@@ -1,0 +1,49 @@
+# PostgreSQL system of record (policies / customers / payments / claims)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-credentials
+  namespace: insurance-lakehouse
+type: Opaque
+stringData:
+  POSTGRES_USER: meridian
+  POSTGRES_PASSWORD: meridian_dev
+  POSTGRES_DB: meridian_policy
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: insurance-lakehouse
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector: { matchLabels: { app: postgres } }
+  template:
+    metadata: { labels: { app: postgres } }
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports: [{ containerPort: 5432 }]
+          envFrom:
+            - secretRef: { name: postgres-credentials }
+          volumeMounts:
+            - { name: data, mountPath: /var/lib/postgresql/data }
+          readinessProbe:
+            exec: { command: ["pg_isready", "-U", "meridian"] }
+            initialDelaySeconds: 5
+  volumeClaimTemplates:
+    - metadata: { name: data }
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources: { requests: { storage: 10Gi } }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: insurance-lakehouse
+spec:
+  selector: { app: postgres }
+  ports: [{ port: 5432, targetPort: 5432 }]

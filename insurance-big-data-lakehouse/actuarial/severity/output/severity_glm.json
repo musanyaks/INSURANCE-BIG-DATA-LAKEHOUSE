@@ -1,0 +1,20 @@
+{
+  "model": "Gamma GLM (log link) on paid claim amounts",
+  "rows": 718,
+  "mean_severity": 4832.34,
+  "median_severity": 2040.09,
+  "coefficients": {
+    "const": -0.5731,
+    "product_Home": 0.0326,
+    "product_Motor": 0.0161,
+    "region_East": 0.1138,
+    "region_North": 0.2825,
+    "region_South": 0.4548,
+    "region_West": 0.1384,
+    "age_band_26-35": -0.1008,
+    "age_band_36-50": -0.0049,
+    "age_band_51-65": -0.2328,
+    "age_band_65+": -0.163,
+    "log_peril_index": 1.0987
+  }
+}

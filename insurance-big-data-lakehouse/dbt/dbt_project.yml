@@ -1,0 +1,20 @@
+name: insurance_lakehouse
+version: "1.0.0"
+config-version: 2
+
+profile: insurance_lakehouse
+
+model-paths: ["models"]
+snapshot-paths: ["snapshots"]
+test-paths: ["tests"]
+
+models:
+  insurance_lakehouse:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table
+
+vars:
+  target_loss_ratio: 0.68   # pricing adequacy benchmark
+  expense_ratio: 0.15

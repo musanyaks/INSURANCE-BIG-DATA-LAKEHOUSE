@@ -1,0 +1,59 @@
+version: 2
+
+sources:
+  - name: lakehouse_silver
+    schema: silver            # Trino: lakehouse.silver.* (file metastore maps parquet dirs)
+    tables:
+      - name: policies
+      - name: customers
+      - name: claims
+      - name: payments
+
+models:
+  - name: stg_policies
+    columns:
+      - name: policy_id
+        tests: [unique, not_null]
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['Active', 'Renewed', 'Lapsed', 'Cancelled']
+      - name: product
+        tests:
+          - accepted_values:
+              values: ['Motor', 'Home', 'Health']
+
+  - name: stg_claims
+    columns:
+      - name: claim_id
+        tests: [unique, not_null]
+      - name: policy_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_policies')
+              field: policy_id
+
+  - name: stg_payments
+    columns:
+      - name: payment_id
+        tests: [unique, not_null]
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['Paid', 'Failed', 'Returned']
+
+  - name: fct_claims
+    columns:
+      - name: claim_id
+        tests: [unique, not_null]
+
+  - name: mart_loss_ratio_by_region
+    columns:
+      - name: region
+        tests: [not_null]
+
+  - name: mart_pricing_adequacy
+    columns:
+      - name: product
+        tests: [not_null]

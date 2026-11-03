@@ -1,0 +1,3 @@
+alert_id,claim_id,alert_date,alert_score,siu_outcome
+FA00001,CL000016,2025-12-21,0.2054,Cleared
+FA00002,CL000007,2026-02-14,0.2317,Under Review

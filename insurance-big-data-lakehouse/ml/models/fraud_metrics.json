@@ -1,0 +1,16 @@
+{
+  "winner": "logistic_regression",
+  "roc_auc": 0.562,
+  "average_precision": 0.1017,
+  "brier": 0.069,
+  "n_train": 718,
+  "n_test": 718,
+  "fraud_rate": 0.0738,
+  "cv": "5-fold stratified, out-of-fold predictions",
+  "precision_at_top_5pct": 0.0857,
+  "threshold": 0.1272,
+  "suggested_threshold": 0.1272,
+  "alerts_at_threshold": 72,
+  "precision_at_threshold": 0.1389,
+  "recall_at_threshold": 0.1887
+}

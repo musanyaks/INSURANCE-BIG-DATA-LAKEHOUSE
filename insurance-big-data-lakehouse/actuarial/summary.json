@@ -1,0 +1,94 @@
+{
+  "frequency": {
+    "model": "Poisson GLM (log link, log-exposure offset)",
+    "rows": 8000,
+    "claims": 718,
+    "empirical_frequency_per_year": 0.1127,
+    "coefficients": {
+      "const": -1.5989,
+      "product_Home": -1.4511,
+      "product_Motor": -0.7535,
+      "region_East": 0.1417,
+      "region_North": 0.1652,
+      "region_South": 0.157,
+      "region_West": 0.109,
+      "age_band_26-35": 0.0243,
+      "age_band_36-50": 0.0084,
+      "age_band_51-65": 0.1128,
+      "age_band_65+": -0.1575,
+      "driving_score_z": -0.2657
+    },
+    "aic": 4600.45
+  },
+  "severity": {
+    "model": "Gamma GLM (log link) on paid claim amounts",
+    "rows": 718,
+    "mean_severity": 4832.34,
+    "median_severity": 2040.09,
+    "coefficients": {
+      "const": -0.5731,
+      "product_Home": 0.0326,
+      "product_Motor": 0.0161,
+      "region_East": 0.1138,
+      "region_North": 0.2825,
+      "region_South": 0.4548,
+      "region_West": 0.1384,
+      "age_band_26-35": -0.1008,
+      "age_band_36-50": -0.0049,
+      "age_band_51-65": -0.2328,
+      "age_band_65+": -0.163,
+      "log_peril_index": 1.0987
+    }
+  },
+  "pricing": {
+    "method": "frequency(severity) GLM pure-premium indication",
+    "target_loss_ratio": 0.68,
+    "segments": 15,
+    "increases": 15,
+    "decreases": 0,
+    "max_adequacy_index": 14.387,
+    "min_adequacy_index": 4.02,
+    "portfolio_indicated_change_pct": 848.37
+  },
+  "adequacy": {
+    "method": "actual-vs-target loss ratio (68%) by product \u00d7 region",
+    "segments": 15,
+    "under_priced": 3,
+    "over_priced": 10,
+    "worst_segment": {
+      "product": "Home",
+      "region": "South",
+      "loss_ratio": 1.216
+    },
+    "best_segment": {
+      "product": "Motor",
+      "region": "Central",
+      "loss_ratio": 0.2548
+    },
+    "portfolio_loss_ratio": 0.5797
+  },
+  "reserving": {
+    "method": "paid chain ladder, volume-weighted LDFs, 500\u00d7 bootstrap",
+    "valuation_date": "2026-10-31",
+    "accident_quarters": 12,
+    "paid_to_date": 2539832.78,
+    "ultimate_estimate": 3751394.35,
+    "total_reserve": 1211561.57,
+    "reserve_p50": 1198751.59,
+    "reserve_p75": 1323466.9,
+    "reserve_p95": 1583114.78,
+    "development_factors": [
+      5.0764,
+      2.2104,
+      1.0706,
+      1.0124,
+      1.0108,
+      1.0125,
+      1.0176,
+      1.0146,
+      1.0334,
+      1.05,
+      1.019
+    ]
+  }
+}

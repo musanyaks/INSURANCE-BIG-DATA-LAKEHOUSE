@@ -1,0 +1,132 @@
+{
+  "generated_at": "2026-11-02T14:03:04.996175+00:00",
+  "summary": {
+    "total": 18,
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0
+  },
+  "results": [
+    {
+      "dataset": "silver.policies",
+      "check": "not_null",
+      "status": "PASS",
+      "detail": {
+        "policy_id": 0,
+        "customer_id": 0,
+        "product": 0,
+        "annual_premium": 0
+      }
+    },
+    {
+      "dataset": "silver.policies",
+      "check": "unique",
+      "status": "PASS",
+      "detail": "0 duplicates"
+    },
+    {
+      "dataset": "silver.policies",
+      "check": "allowed_values",
+      "status": "PASS",
+      "detail": "0 rows outside ['Active', 'Renewed', 'Lapsed', 'Cancelled']"
+    },
+    {
+      "dataset": "silver.policies",
+      "check": "range",
+      "status": "PASS",
+      "detail": "0 rows outside [50, 100000]"
+    },
+    {
+      "dataset": "silver.customers",
+      "check": "unique",
+      "status": "PASS",
+      "detail": "0 duplicates"
+    },
+    {
+      "dataset": "silver.customers",
+      "check": "range",
+      "status": "PASS",
+      "detail": "0 rows outside [18, 100]"
+    },
+    {
+      "dataset": "silver.claims",
+      "check": "not_null",
+      "status": "PASS",
+      "detail": {
+        "claim_id": 0,
+        "policy_id": 0,
+        "claim_amount": 0
+      }
+    },
+    {
+      "dataset": "silver.claims",
+      "check": "unique",
+      "status": "PASS",
+      "detail": "0 duplicates"
+    },
+    {
+      "dataset": "silver.claims",
+      "check": "range",
+      "status": "PASS",
+      "detail": "0 rows outside [1, 500000]"
+    },
+    {
+      "dataset": "silver.claims",
+      "check": "referential",
+      "status": "PASS",
+      "detail": "0 orphaned rows"
+    },
+    {
+      "dataset": "silver.payments",
+      "check": "unique",
+      "status": "PASS",
+      "detail": "0 duplicates"
+    },
+    {
+      "dataset": "silver.payments",
+      "check": "allowed_values",
+      "status": "PASS",
+      "detail": "0 rows outside ['Paid', 'Failed', 'Returned']"
+    },
+    {
+      "dataset": "silver.telematics",
+      "check": "range",
+      "status": "PASS",
+      "detail": "0 rows outside [0, 200]"
+    },
+    {
+      "dataset": "gold.policy_performance",
+      "check": "unique",
+      "status": "PASS",
+      "detail": "0 duplicates"
+    },
+    {
+      "dataset": "gold.policy_performance",
+      "check": "range",
+      "status": "PASS",
+      "detail": "0 rows outside [0, 5]"
+    },
+    {
+      "dataset": "gold.policy_performance",
+      "check": "not_null",
+      "status": "PASS",
+      "detail": {
+        "policy_id": 0,
+        "product": 0,
+        "earned_premium": 0
+      }
+    },
+    {
+      "dataset": "gold.portfolio_kpis",
+      "check": "range",
+      "status": "PASS",
+      "detail": "0 rows outside [0, 6] (cells \u2265100 in-force)"
+    },
+    {
+      "dataset": "gold.fraud_scores",
+      "check": "range",
+      "status": "PASS",
+      "detail": "0 rows outside [0, 1]"
+    }
+  ]
+}

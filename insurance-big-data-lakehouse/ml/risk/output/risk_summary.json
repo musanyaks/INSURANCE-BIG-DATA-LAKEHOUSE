@@ -1,0 +1,37 @@
+{
+  "method": "weighted percentile blend (frequency/severity/telematics/payments)",
+  "policies": 8000,
+  "weights_used": {
+    "frequency": 0.35,
+    "severity": 0.3,
+    "payments": 0.15,
+    "telematics": 0.2
+  },
+  "telematics_included": true,
+  "tier_distribution": [
+    {
+      "risk_tier": 2,
+      "policies": 686,
+      "avg_claims": 0.0,
+      "avg_incurred": 0.0
+    },
+    {
+      "risk_tier": 3,
+      "policies": 6797,
+      "avg_claims": 0.05,
+      "avg_incurred": 231.03
+    },
+    {
+      "risk_tier": 4,
+      "policies": 324,
+      "avg_claims": 0.55,
+      "avg_incurred": 2608.27
+    },
+    {
+      "risk_tier": 5,
+      "policies": 193,
+      "avg_claims": 1.08,
+      "avg_incurred": 5462.39
+    }
+  ]
+}

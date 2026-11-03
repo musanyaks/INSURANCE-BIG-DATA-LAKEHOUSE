@@ -1,0 +1,23 @@
+{
+  "scale": "demo",
+  "data_start": "2024-01-01",
+  "data_end": "2026-10-31",
+  "rows": {
+    "customers": 6000,
+    "policies": 8000,
+    "payments": 75151,
+    "claims": 718,
+    "fraud_alerts": 58,
+    "telematics": 118366,
+    "landing_policies": 8000,
+    "landing_customers": 6000,
+    "landing_claims": 718,
+    "landing_fraud_alerts": 58,
+    "landing_payments": 75151,
+    "landing_telematics": 118366
+  },
+  "fraud_rate": 0.0738,
+  "churn_rate": 0.1022,
+  "total_premium": 7503285.66,
+  "total_incurred": 3469618.46
+}

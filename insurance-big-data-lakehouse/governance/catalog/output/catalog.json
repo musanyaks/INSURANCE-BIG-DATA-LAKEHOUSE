@@ -1,0 +1,1096 @@
+{
+  "generated_at": "2026-11-02T14:03:06.960728+00:00",
+  "datasets": [
+    {
+      "dataset": "bronze.claims",
+      "layer": "bronze",
+      "rows": 718,
+      "columns": [
+        {
+          "name": "claim_id",
+          "type": "object",
+          "description": "Unique claim identifier (CL000001\u2026)"
+        },
+        {
+          "name": "policy_id",
+          "type": "object",
+          "description": "Unique policy identifier (P000001\u2026)"
+        },
+        {
+          "name": "loss_date",
+          "type": "object",
+          "description": "Date the loss occurred"
+        },
+        {
+          "name": "peril",
+          "type": "object",
+          "description": "Cause of loss (Collision, Storm, Surgery, \u2026)"
+        },
+        {
+          "name": "claim_amount",
+          "type": "float64",
+          "description": "Total estimated claim cost (USD) \u2014 ultimate basis"
+        },
+        {
+          "name": "night_indicator",
+          "type": "bool",
+          "description": "1 if loss/observation occurred at night"
+        },
+        {
+          "name": "prior_claims",
+          "type": "int64",
+          "description": "Number of earlier claims on the same policy"
+        },
+        {
+          "name": "reported_lag_days",
+          "type": "int64",
+          "description": "Days between loss and reporting (fraud signal)"
+        },
+        {
+          "name": "report_date",
+          "type": "object",
+          "description": "Date the FNOL was reported"
+        },
+        {
+          "name": "severity_pct",
+          "type": "float64",
+          "description": "Claim size percentile within its peril"
+        },
+        {
+          "name": "status",
+          "type": "object",
+          "description": "Policy status: Active | Renewed | Lapsed | Cancelled"
+        },
+        {
+          "name": "paid_amount",
+          "type": "float64",
+          "description": "Amount paid to date (USD)"
+        },
+        {
+          "name": "reserve_amount",
+          "type": "float64",
+          "description": "Outstanding case reserve (USD)"
+        },
+        {
+          "name": "closed_date",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "fraud_flag",
+          "type": "bool",
+          "description": "Ground-truth / confirmed fraud indicator"
+        },
+        {
+          "name": "fraud_probability",
+          "type": "float64",
+          "description": "Model-estimated fraud probability [0,1]"
+        },
+        {
+          "name": "_loaded_at",
+          "type": "datetime64[us, UTC]",
+          "description": "`datetime64[us, UTC]` column"
+        },
+        {
+          "name": "_source",
+          "type": "object",
+          "description": "`object` column"
+        }
+      ]
+    },
+    {
+      "dataset": "bronze.customers",
+      "layer": "bronze",
+      "rows": 6000,
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "object",
+          "description": "Unique customer identifier (C000001\u2026)"
+        },
+        {
+          "name": "name",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "age",
+          "type": "int64",
+          "description": "`int64` column"
+        },
+        {
+          "name": "region",
+          "type": "object",
+          "description": "Sales territory: North | South | East | West | Central"
+        },
+        {
+          "name": "customer_since",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "credit_band",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "_loaded_at",
+          "type": "datetime64[us, UTC]",
+          "description": "`datetime64[us, UTC]` column"
+        },
+        {
+          "name": "_source",
+          "type": "object",
+          "description": "`object` column"
+        }
+      ]
+    },
+    {
+      "dataset": "bronze.fraud",
+      "layer": "bronze",
+      "rows": 58,
+      "columns": [
+        {
+          "name": "alert_id",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "claim_id",
+          "type": "object",
+          "description": "Unique claim identifier (CL000001\u2026)"
+        },
+        {
+          "name": "alert_date",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "alert_score",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "siu_outcome",
+          "type": "object",
+          "description": "SIU investigation outcome"
+        },
+        {
+          "name": "_loaded_at",
+          "type": "datetime64[us, UTC]",
+          "description": "`datetime64[us, UTC]` column"
+        },
+        {
+          "name": "_source",
+          "type": "object",
+          "description": "`object` column"
+        }
+      ]
+    },
+    {
+      "dataset": "bronze.payments",
+      "layer": "bronze",
+      "rows": 75151,
+      "columns": [
+        {
+          "name": "payment_id",
+          "type": "object",
+          "description": "Unique premium payment identifier"
+        },
+        {
+          "name": "policy_id",
+          "type": "object",
+          "description": "Unique policy identifier (P000001\u2026)"
+        },
+        {
+          "name": "due_date",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "amount",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "status",
+          "type": "object",
+          "description": "Policy status: Active | Renewed | Lapsed | Cancelled"
+        },
+        {
+          "name": "method",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "_loaded_at",
+          "type": "datetime64[us, UTC]",
+          "description": "`datetime64[us, UTC]` column"
+        },
+        {
+          "name": "_source",
+          "type": "object",
+          "description": "`object` column"
+        }
+      ]
+    },
+    {
+      "dataset": "bronze.policies",
+      "layer": "bronze",
+      "rows": 8000,
+      "columns": [
+        {
+          "name": "policy_id",
+          "type": "object",
+          "description": "Unique policy identifier (P000001\u2026)"
+        },
+        {
+          "name": "customer_id",
+          "type": "object",
+          "description": "Unique customer identifier (C000001\u2026)"
+        },
+        {
+          "name": "product",
+          "type": "object",
+          "description": "Line of business: Motor | Home | Health"
+        },
+        {
+          "name": "sub_product",
+          "type": "object",
+          "description": "Line of business: Motor | Home | Health"
+        },
+        {
+          "name": "region",
+          "type": "object",
+          "description": "Sales territory: North | South | East | West | Central"
+        },
+        {
+          "name": "distribution_channel",
+          "type": "object",
+          "description": "Distribution channel: Direct | Agent | Broker | Online"
+        },
+        {
+          "name": "effective_date",
+          "type": "object",
+          "description": "Policy inception date"
+        },
+        {
+          "name": "expiry_date",
+          "type": "object",
+          "description": "Policy expiry date"
+        },
+        {
+          "name": "annual_premium",
+          "type": "float64",
+          "description": "Annual written premium (USD)"
+        },
+        {
+          "name": "sum_insured",
+          "type": "float64",
+          "description": "Coverage limit (USD)"
+        },
+        {
+          "name": "driver_aggressiveness",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "finance_stress",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "status",
+          "type": "object",
+          "description": "Policy status: Active | Renewed | Lapsed | Cancelled"
+        },
+        {
+          "name": "churned",
+          "type": "int64",
+          "description": "1 if the policy lapsed or was cancelled at renewal"
+        },
+        {
+          "name": "_loaded_at",
+          "type": "datetime64[us, UTC]",
+          "description": "`datetime64[us, UTC]` column"
+        },
+        {
+          "name": "_source",
+          "type": "object",
+          "description": "`object` column"
+        }
+      ]
+    },
+    {
+      "dataset": "bronze.telematics",
+      "layer": "bronze",
+      "rows": 118366,
+      "columns": [
+        {
+          "name": "ping_id",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "policy_id",
+          "type": "object",
+          "description": "Unique policy identifier (P000001\u2026)"
+        },
+        {
+          "name": "ping_ts",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "speed_kph",
+          "type": "float64",
+          "description": "Observed speed (km/h)"
+        },
+        {
+          "name": "harsh_braking",
+          "type": "bool",
+          "description": "Ping flagged for harsh braking"
+        },
+        {
+          "name": "harsh_accel",
+          "type": "bool",
+          "description": "Ping flagged for harsh acceleration"
+        },
+        {
+          "name": "night_trip",
+          "type": "bool",
+          "description": "Ping recorded between 22:00 and 06:00"
+        },
+        {
+          "name": "odometer_km",
+          "type": "float64",
+          "description": "Cumulative odometer reading (km)"
+        },
+        {
+          "name": "_loaded_at",
+          "type": "datetime64[us, UTC]",
+          "description": "`datetime64[us, UTC]` column"
+        },
+        {
+          "name": "_source",
+          "type": "object",
+          "description": "`object` column"
+        }
+      ]
+    },
+    {
+      "dataset": "silver.claims",
+      "layer": "silver",
+      "rows": 718,
+      "columns": [
+        {
+          "name": "claim_id",
+          "type": "object",
+          "description": "Unique claim identifier (CL000001\u2026)"
+        },
+        {
+          "name": "policy_id",
+          "type": "object",
+          "description": "Unique policy identifier (P000001\u2026)"
+        },
+        {
+          "name": "loss_date",
+          "type": "datetime64[ns]",
+          "description": "Date the loss occurred"
+        },
+        {
+          "name": "peril",
+          "type": "object",
+          "description": "Cause of loss (Collision, Storm, Surgery, \u2026)"
+        },
+        {
+          "name": "claim_amount",
+          "type": "float64",
+          "description": "Total estimated claim cost (USD) \u2014 ultimate basis"
+        },
+        {
+          "name": "night_indicator",
+          "type": "bool",
+          "description": "1 if loss/observation occurred at night"
+        },
+        {
+          "name": "prior_claims",
+          "type": "int64",
+          "description": "Number of earlier claims on the same policy"
+        },
+        {
+          "name": "reported_lag_days",
+          "type": "int64",
+          "description": "Days between loss and reporting (fraud signal)"
+        },
+        {
+          "name": "report_date",
+          "type": "datetime64[ns]",
+          "description": "Date the FNOL was reported"
+        },
+        {
+          "name": "severity_pct",
+          "type": "float64",
+          "description": "Claim size percentile within its peril"
+        },
+        {
+          "name": "status",
+          "type": "object",
+          "description": "Policy status: Active | Renewed | Lapsed | Cancelled"
+        },
+        {
+          "name": "paid_amount",
+          "type": "float64",
+          "description": "Amount paid to date (USD)"
+        },
+        {
+          "name": "reserve_amount",
+          "type": "float64",
+          "description": "Outstanding case reserve (USD)"
+        },
+        {
+          "name": "closed_date",
+          "type": "datetime64[ns]",
+          "description": "`datetime64[ns]` column"
+        },
+        {
+          "name": "fraud_flag",
+          "type": "bool",
+          "description": "Ground-truth / confirmed fraud indicator"
+        },
+        {
+          "name": "fraud_probability",
+          "type": "float64",
+          "description": "Model-estimated fraud probability [0,1]"
+        },
+        {
+          "name": "product",
+          "type": "object",
+          "description": "Line of business: Motor | Home | Health"
+        },
+        {
+          "name": "region",
+          "type": "object",
+          "description": "Sales territory: North | South | East | West | Central"
+        }
+      ]
+    },
+    {
+      "dataset": "silver.customers",
+      "layer": "silver",
+      "rows": 6000,
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "object",
+          "description": "Unique customer identifier (C000001\u2026)"
+        },
+        {
+          "name": "name",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "age",
+          "type": "int64",
+          "description": "`int64` column"
+        },
+        {
+          "name": "region",
+          "type": "object",
+          "description": "Sales territory: North | South | East | West | Central"
+        },
+        {
+          "name": "customer_since",
+          "type": "datetime64[ns]",
+          "description": "`datetime64[ns]` column"
+        },
+        {
+          "name": "credit_band",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "age_band",
+          "type": "category",
+          "description": "`category` column"
+        }
+      ]
+    },
+    {
+      "dataset": "silver.fraud_alerts",
+      "layer": "silver",
+      "rows": 58,
+      "columns": [
+        {
+          "name": "alert_id",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "claim_id",
+          "type": "object",
+          "description": "Unique claim identifier (CL000001\u2026)"
+        },
+        {
+          "name": "alert_date",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "alert_score",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "siu_outcome",
+          "type": "object",
+          "description": "SIU investigation outcome"
+        }
+      ]
+    },
+    {
+      "dataset": "silver.payments",
+      "layer": "silver",
+      "rows": 75151,
+      "columns": [
+        {
+          "name": "payment_id",
+          "type": "object",
+          "description": "Unique premium payment identifier"
+        },
+        {
+          "name": "policy_id",
+          "type": "object",
+          "description": "Unique policy identifier (P000001\u2026)"
+        },
+        {
+          "name": "due_date",
+          "type": "datetime64[ns]",
+          "description": "`datetime64[ns]` column"
+        },
+        {
+          "name": "amount",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "status",
+          "type": "object",
+          "description": "Policy status: Active | Renewed | Lapsed | Cancelled"
+        },
+        {
+          "name": "method",
+          "type": "object",
+          "description": "`object` column"
+        }
+      ]
+    },
+    {
+      "dataset": "silver.policies",
+      "layer": "silver",
+      "rows": 8000,
+      "columns": [
+        {
+          "name": "policy_id",
+          "type": "object",
+          "description": "Unique policy identifier (P000001\u2026)"
+        },
+        {
+          "name": "customer_id",
+          "type": "object",
+          "description": "Unique customer identifier (C000001\u2026)"
+        },
+        {
+          "name": "product",
+          "type": "object",
+          "description": "Line of business: Motor | Home | Health"
+        },
+        {
+          "name": "sub_product",
+          "type": "object",
+          "description": "Line of business: Motor | Home | Health"
+        },
+        {
+          "name": "region",
+          "type": "object",
+          "description": "Sales territory: North | South | East | West | Central"
+        },
+        {
+          "name": "distribution_channel",
+          "type": "object",
+          "description": "Distribution channel: Direct | Agent | Broker | Online"
+        },
+        {
+          "name": "effective_date",
+          "type": "datetime64[ns]",
+          "description": "Policy inception date"
+        },
+        {
+          "name": "expiry_date",
+          "type": "datetime64[ns]",
+          "description": "Policy expiry date"
+        },
+        {
+          "name": "annual_premium",
+          "type": "float64",
+          "description": "Annual written premium (USD)"
+        },
+        {
+          "name": "sum_insured",
+          "type": "float64",
+          "description": "Coverage limit (USD)"
+        },
+        {
+          "name": "driver_aggressiveness",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "finance_stress",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "status",
+          "type": "object",
+          "description": "Policy status: Active | Renewed | Lapsed | Cancelled"
+        },
+        {
+          "name": "churned",
+          "type": "int64",
+          "description": "1 if the policy lapsed or was cancelled at renewal"
+        }
+      ]
+    },
+    {
+      "dataset": "silver.telematics",
+      "layer": "silver",
+      "rows": 118366,
+      "columns": [
+        {
+          "name": "ping_id",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "policy_id",
+          "type": "object",
+          "description": "Unique policy identifier (P000001\u2026)"
+        },
+        {
+          "name": "ping_ts",
+          "type": "datetime64[ns]",
+          "description": "`datetime64[ns]` column"
+        },
+        {
+          "name": "speed_kph",
+          "type": "float64",
+          "description": "Observed speed (km/h)"
+        },
+        {
+          "name": "harsh_braking",
+          "type": "bool",
+          "description": "Ping flagged for harsh braking"
+        },
+        {
+          "name": "harsh_accel",
+          "type": "bool",
+          "description": "Ping flagged for harsh acceleration"
+        },
+        {
+          "name": "night_trip",
+          "type": "bool",
+          "description": "Ping recorded between 22:00 and 06:00"
+        },
+        {
+          "name": "odometer_km",
+          "type": "float64",
+          "description": "Cumulative odometer reading (km)"
+        }
+      ]
+    },
+    {
+      "dataset": "gold.claims_daily",
+      "layer": "gold",
+      "rows": 695,
+      "columns": [
+        {
+          "name": "loss_date",
+          "type": "object",
+          "description": "Date the loss occurred"
+        },
+        {
+          "name": "product",
+          "type": "object",
+          "description": "Line of business: Motor | Home | Health"
+        },
+        {
+          "name": "region",
+          "type": "object",
+          "description": "Sales territory: North | South | East | West | Central"
+        },
+        {
+          "name": "n_claims",
+          "type": "int64",
+          "description": "`int64` column"
+        },
+        {
+          "name": "incurred",
+          "type": "float64",
+          "description": "Total incurred claim cost (USD)"
+        },
+        {
+          "name": "paid",
+          "type": "float64",
+          "description": "`float64` column"
+        }
+      ]
+    },
+    {
+      "dataset": "gold.customer_360",
+      "layer": "gold",
+      "rows": 6000,
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "object",
+          "description": "Unique customer identifier (C000001\u2026)"
+        },
+        {
+          "name": "name",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "age_band",
+          "type": "category",
+          "description": "`category` column"
+        },
+        {
+          "name": "region",
+          "type": "object",
+          "description": "Sales territory: North | South | East | West | Central"
+        },
+        {
+          "name": "tenure_months",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "n_policies",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "total_premium",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "n_claims",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "open_claims",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "payment_failures",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "churned",
+          "type": "float64",
+          "description": "1 if the policy lapsed or was cancelled at renewal"
+        },
+        {
+          "name": "clv_estimate",
+          "type": "float64",
+          "description": "`float64` column"
+        }
+      ]
+    },
+    {
+      "dataset": "gold.fraud_scores",
+      "layer": "gold",
+      "rows": 718,
+      "columns": [
+        {
+          "name": "claim_id",
+          "type": "object",
+          "description": "Unique claim identifier (CL000001\u2026)"
+        },
+        {
+          "name": "fraud_probability",
+          "type": "float64",
+          "description": "Model-estimated fraud probability [0,1]"
+        },
+        {
+          "name": "fraud_flag",
+          "type": "bool",
+          "description": "Ground-truth / confirmed fraud indicator"
+        },
+        {
+          "name": "report_date",
+          "type": "datetime64[ns]",
+          "description": "Date the FNOL was reported"
+        },
+        {
+          "name": "siu_outcome",
+          "type": "object",
+          "description": "SIU investigation outcome"
+        },
+        {
+          "name": "alert_priority",
+          "type": "object",
+          "description": "Triage priority: High | Medium | Low"
+        }
+      ]
+    },
+    {
+      "dataset": "gold.policy_performance",
+      "layer": "gold",
+      "rows": 8000,
+      "columns": [
+        {
+          "name": "policy_id",
+          "type": "object",
+          "description": "Unique policy identifier (P000001\u2026)"
+        },
+        {
+          "name": "customer_id",
+          "type": "object",
+          "description": "Unique customer identifier (C000001\u2026)"
+        },
+        {
+          "name": "product",
+          "type": "object",
+          "description": "Line of business: Motor | Home | Health"
+        },
+        {
+          "name": "sub_product",
+          "type": "object",
+          "description": "Line of business: Motor | Home | Health"
+        },
+        {
+          "name": "region",
+          "type": "object",
+          "description": "Sales territory: North | South | East | West | Central"
+        },
+        {
+          "name": "distribution_channel",
+          "type": "object",
+          "description": "Distribution channel: Direct | Agent | Broker | Online"
+        },
+        {
+          "name": "effective_date",
+          "type": "datetime64[ns]",
+          "description": "Policy inception date"
+        },
+        {
+          "name": "expiry_date",
+          "type": "datetime64[ns]",
+          "description": "Policy expiry date"
+        },
+        {
+          "name": "status",
+          "type": "object",
+          "description": "Policy status: Active | Renewed | Lapsed | Cancelled"
+        },
+        {
+          "name": "annual_premium",
+          "type": "float64",
+          "description": "Annual written premium (USD)"
+        },
+        {
+          "name": "sum_insured",
+          "type": "float64",
+          "description": "Coverage limit (USD)"
+        },
+        {
+          "name": "months_exposure",
+          "type": "float64",
+          "description": "Policy exposure in months"
+        },
+        {
+          "name": "earned_premium",
+          "type": "float64",
+          "description": "Pro-rata earned premium for the exposure (USD)"
+        },
+        {
+          "name": "n_claims",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "open_claims",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "fraud_claims",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "incurred",
+          "type": "float64",
+          "description": "Total incurred claim cost (USD)"
+        },
+        {
+          "name": "paid",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "loss_ratio",
+          "type": "float64",
+          "description": "incurred \u00f7 earned premium"
+        },
+        {
+          "name": "driving_score",
+          "type": "float64",
+          "description": "Telematics driving score 5-100 (higher = safer)"
+        },
+        {
+          "name": "risk_tier",
+          "type": "int64",
+          "description": "Composite risk tier 1 (lowest) \u2026 5 (highest)"
+        },
+        {
+          "name": "churned",
+          "type": "int64",
+          "description": "1 if the policy lapsed or was cancelled at renewal"
+        }
+      ]
+    },
+    {
+      "dataset": "gold.portfolio_kpis",
+      "layer": "gold",
+      "rows": 102,
+      "columns": [
+        {
+          "name": "month",
+          "type": "object",
+          "description": "`object` column"
+        },
+        {
+          "name": "product",
+          "type": "object",
+          "description": "Line of business: Motor | Home | Health"
+        },
+        {
+          "name": "policies_inforce",
+          "type": "int64",
+          "description": "`int64` column"
+        },
+        {
+          "name": "gwp",
+          "type": "float64",
+          "description": "Gross written premium in the month (USD)"
+        },
+        {
+          "name": "earned_premium",
+          "type": "float64",
+          "description": "Pro-rata earned premium for the exposure (USD)"
+        },
+        {
+          "name": "n_claims",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "claim_frequency",
+          "type": "float64",
+          "description": "Claims per policy in force in the month"
+        },
+        {
+          "name": "avg_severity",
+          "type": "float64",
+          "description": "Average incurred cost per claim (USD)"
+        },
+        {
+          "name": "incurred",
+          "type": "float64",
+          "description": "Total incurred claim cost (USD)"
+        },
+        {
+          "name": "paid",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "loss_ratio",
+          "type": "float64",
+          "description": "incurred \u00f7 earned premium"
+        },
+        {
+          "name": "expense_ratio",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "combined_ratio",
+          "type": "float64",
+          "description": "Loss ratio + expense ratio"
+        },
+        {
+          "name": "fraud_rate",
+          "type": "float64",
+          "description": "`float64` column"
+        }
+      ]
+    },
+    {
+      "dataset": "gold.telematics_behavior",
+      "layer": "gold",
+      "rows": 4387,
+      "columns": [
+        {
+          "name": "policy_id",
+          "type": "object",
+          "description": "Unique policy identifier (P000001\u2026)"
+        },
+        {
+          "name": "pings",
+          "type": "int64",
+          "description": "`int64` column"
+        },
+        {
+          "name": "mileage_km",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "harsh_braking_rate",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "harsh_accel_rate",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "night_rate",
+          "type": "float64",
+          "description": "`float64` column"
+        },
+        {
+          "name": "avg_speed_kph",
+          "type": "float64",
+          "description": "Observed speed (km/h)"
+        },
+        {
+          "name": "driving_score",
+          "type": "float64",
+          "description": "Telematics driving score 5-100 (higher = safer)"
+        }
+      ]
+    }
+  ]
+}

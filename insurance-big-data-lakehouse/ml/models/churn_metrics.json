@@ -1,0 +1,7 @@
+{
+  "winner": "logistic_regression",
+  "roc_auc": 0.7556,
+  "churn_rate": 0.1022,
+  "n": 8000,
+  "cv": "5-fold stratified, out-of-fold predictions"
+}

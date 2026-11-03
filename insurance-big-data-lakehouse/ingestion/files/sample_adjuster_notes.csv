@@ -1,0 +1,21 @@
+note_id,claim_id,adjuster,note,scraped_date
+AN00001,CL000012,J. Mwangi,Customer reported rear-end collision on ring road; police report pending.,2026-03-04
+AN00002,CL000031,S. Osei,Vehicle recovered stripped; VIN plate missing. SIU referral likely.,2026-03-11
+AN00003,CL000047,A. Costa,Water damage from burst pipe; plumbing invoice requested.,2026-01-22
+AN00004,CL000058,J. Mwangi,Insured could not produce keys for claimed theft — inconsistent timeline.,2026-04-02
+AN00005,CL000062,L. Novak,Storm damage to roof; satellite imagery confirms hail event.,2026-02-18
+AN00006,CL000071,S. Osei,Third-party injury claim; dashcam footage requested from insured.,2026-03-29
+AN00007,CL000089,A. Costa,Surgery pre-authorisation verified with hospital.,2026-05-14
+AN00008,CL000093,L. Novak,Fire origin points to electrical fault; forensic report ordered.,2026-04-27
+AN00009,CL000104,J. Mwangi,Loss date falls on public holiday; garage closure delayed estimate.,2026-06-08
+AN00010,CL000118,S. Osei,Multiple prior windscreen claims in 12 months — flag for review.,2026-06-19
+AN00011,CL000127,A. Costa,Burglary claim matches neighbourhood crime spike; extra docs requested.,2026-07-03
+AN00012,CL000133,L. Novak,Insured travelling abroad; power of attorney provided for settlement.,2026-07-21
+AN00013,CL000149,J. Mwangi,Rear bumper scratch only; liability admitted at scene.,2026-08-05
+AN00014,CL000156,S. Osei,Claim reported 47 days after loss — late reporting explanation on file.,2026-08-17
+AN00015,CL000168,A. Costa,Outpatient physiotherapy approved per policy schedule.,2026-09-01
+AN00016,CL000177,L. Novak,Storm claim coincides with nearby three claims — possible causation event.,2026-09-12
+AN00017,CL000185,J. Mwangi,Total loss valuation received; insured accepting figure.,2026-09-28
+AN00018,CL000196,S. Osei,Duplicate submission detected against CL000191; merging files.,2026-10-06
+AN00019,CL000203,A. Costa,Chronic care plan renewal documents pending from member.,2026-10-15
+AN00020,CL000214,L. Novak,Repairer quotes vary 38% — independent assessment scheduled.,2026-10-24

@@ -1,0 +1,21 @@
+{
+  "model": "Poisson GLM (log link, log-exposure offset)",
+  "rows": 8000,
+  "claims": 718,
+  "empirical_frequency_per_year": 0.1127,
+  "coefficients": {
+    "const": -1.5989,
+    "product_Home": -1.4511,
+    "product_Motor": -0.7535,
+    "region_East": 0.1417,
+    "region_North": 0.1652,
+    "region_South": 0.157,
+    "region_West": 0.109,
+    "age_band_26-35": 0.0243,
+    "age_band_36-50": 0.0084,
+    "age_band_51-65": 0.1128,
+    "age_band_65+": -0.1575,
+    "driving_score_z": -0.2657
+  },
+  "aic": 4600.45
+}

@@ -1,0 +1,24 @@
+# Copy to dbt/profiles.yml and adjust for your environment.
+# Primary target: Trino reading the gold/silver parquet on MinIO.
+#   pip install dbt-trino
+# Alternative: dbt-spark with a Thrift server, or dbt-databricks.
+
+insurance_lakehouse:
+  target: dev
+  outputs:
+    dev:
+      type: trino
+      host: localhost
+      port: 8080
+      user: admin
+      catalog: lakehouse
+      schema: analytics
+      threads: 4
+
+    # spark_thrift:
+    #   type: spark
+    #   host: localhost
+    #   port: 10000
+    #   method: thrift
+    #   schema: analytics
+    #   threads: 4

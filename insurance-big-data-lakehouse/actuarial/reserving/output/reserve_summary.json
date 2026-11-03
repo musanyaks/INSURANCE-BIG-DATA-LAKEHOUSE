@@ -1,0 +1,24 @@
+{
+  "method": "paid chain ladder, volume-weighted LDFs, 500\u00d7 bootstrap",
+  "valuation_date": "2026-10-31",
+  "accident_quarters": 12,
+  "paid_to_date": 2539832.78,
+  "ultimate_estimate": 3751394.35,
+  "total_reserve": 1211561.57,
+  "reserve_p50": 1198751.59,
+  "reserve_p75": 1323466.9,
+  "reserve_p95": 1583114.78,
+  "development_factors": [
+    5.0764,
+    2.2104,
+    1.0706,
+    1.0124,
+    1.0108,
+    1.0125,
+    1.0176,
+    1.0146,
+    1.0334,
+    1.05,
+    1.019
+  ]
+}

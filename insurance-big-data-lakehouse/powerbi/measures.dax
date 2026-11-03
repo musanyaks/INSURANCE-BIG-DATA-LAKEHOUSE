@@ -1,0 +1,60 @@
+// ═══════════════════════════════════════════════════════════════════════════
+//  Meridian Mutual — Power BI measures (gold layer)
+//  Import into any table of the star model (see powerbi/README.md)
+// ═══════════════════════════════════════════════════════════════════════════
+
+Total GWP =
+    SUM ( 'portfolio_kpis'[gwp] )
+
+Total Earned Premium =
+    SUM ( 'portfolio_kpis'[earned_premium] )
+
+Total Incurred =
+    SUM ( 'portfolio_kpis'[incurred] )
+
+Total Paid =
+    SUM ( 'portfolio_kpis'[paid] )
+
+Claim Count =
+    SUM ( 'portfolio_kpis'[n_claims] )
+
+Policies In Force =
+    AVERAGE ( 'portfolio_kpis'[policies_inforce] )
+
+Loss Ratio =
+    DIVIDE ( [Total Incurred], [Total Earned Premium] )
+
+Expense Ratio = 0.15
+
+Combined Ratio =
+    [Loss Ratio] + [Expense Ratio]
+
+Claim Frequency =
+    DIVIDE ( [Claim Count], [Policies In Force] )
+
+Average Severity =
+    DIVIDE ( [Total Incurred], [Claim Count] )
+
+Fraud Rate =
+    DIVIDE (
+        CALCULATE ( [Claim Count], 'portfolio_kpis'[fraud] > 0 ),
+        [Claim Count]
+    )
+
+Reserve Adequacy =
+    VAR Ultimate = [Ultimate Estimate]
+    VAR PaidToDate = [Paid To Date]
+    RETURN DIVIDE ( Ultimate - PaidToDate, Ultimate )
+
+Ultimate Estimate =
+    SUM ( 'reserves_by_accident_quarter'[paid_to_date] )
+        * AVERAGE ( 'reserves_by_accident_quarter'[cdf_to_ultimate] )
+
+Paid To Date =
+    SUM ( 'reserves_by_accident_quarter'[paid_to_date] )
+
+// ▸ Suggested visuals:
+//   Loss Ratio Trend      – line: month × [Loss Ratio] by product
+//   Segment Heatmap       – matrix: region / product × [Loss Ratio]
+//   Fraud Funnel          – bar: alert_priority × alert count
+//   Reserve Waterfall     – paid vs case vs IBNR by accident quarter

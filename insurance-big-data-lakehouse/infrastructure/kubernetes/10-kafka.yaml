@@ -1,0 +1,58 @@
+# Kafka (KRaft, single replica for the demo) via Strimzi + the 4 event topics
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: meridian
+  namespace: insurance-lakehouse
+spec:
+  kafka:
+    version: 3.7.0
+    metadataVersion: 3.7-IV2
+    replicas: 1
+    listeners:
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+    config:
+      offsets.topic.replication.factor: 1
+      transaction.state.log.replication.factor: 1
+      transaction.state.log.min.isr: 1
+      auto.create.topics.enable: false
+    storage:
+      type: ephemeral
+  zookeeper: {}   # placeholder removed automatically in KRaft mode
+  entityOperator:
+    topicOperator: {}
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: claims-events
+  namespace: insurance-lakehouse
+  labels: { strimzi.io/cluster: meridian }
+spec: { partitions: 3, replicas: 1, config: { retention.ms: "604800000" } }
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: payments-events
+  namespace: insurance-lakehouse
+  labels: { strimzi.io/cluster: meridian }
+spec: { partitions: 3, replicas: 1, config: { retention.ms: "604800000" } }
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: telematics-pings
+  namespace: insurance-lakehouse
+  labels: { strimzi.io/cluster: meridian }
+spec: { partitions: 6, replicas: 1, config: { retention.ms: "604800000" } }
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: fraud-alerts
+  namespace: insurance-lakehouse
+  labels: { strimzi.io/cluster: meridian }
+spec: { partitions: 3, replicas: 1, config: { retention.ms: "604800000" } }

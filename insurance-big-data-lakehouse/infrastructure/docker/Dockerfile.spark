@@ -1,0 +1,19 @@
+# Spark job runner for the medallion pipelines (profile "spark")
+#   docker compose --profile spark build spark
+#   docker compose --profile spark exec spark spark-submit /opt/app/spark/gold/gold_policy_performance.py
+FROM bitnami/spark:3.5
+
+USER root
+RUN pip install --no-cache-dir "delta-spark>=3.2.0,<4.0" pandas pyarrow PyYAML
+
+WORKDIR /opt/app
+COPY common/ ./common/
+COPY spark/ ./spark/
+
+ENV PYTHONUNBUFFERED=1 \
+    LAKEHOUSE_ROOT=s3a://lakehouse \
+    DELTA_ENABLED=true
+
+# Delta jars are resolved by configure_spark_with_delta_pip at submit time
+# (first run needs internet access to Maven Central).
+CMD ["sleep", "infinity"]

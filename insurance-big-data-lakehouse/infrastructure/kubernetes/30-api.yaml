@@ -1,0 +1,40 @@
+# FastAPI serving layer
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lakehouse-api
+  namespace: insurance-lakehouse
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: lakehouse-api } }
+  template:
+    metadata: { labels: { app: lakehouse-api } }
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/meridian/lakehouse-api:latest   # build from infrastructure/docker/Dockerfile.api
+          ports: [{ containerPort: 8000 }]
+          env:
+            - name: LAKEHOUSE_ROOT
+              value: s3a://lakehouse
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom: { secretKeyRef: { name: object-store, key: access-key } }
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom: { secretKeyRef: { name: object-store, key: secret-key } }
+            - name: S3_ENDPOINT
+              value: http://minio.insurance-lakehouse.svc:9000
+          readinessProbe:
+            httpGet: { path: /health, port: 8000 }
+            initialDelaySeconds: 5
+          resources:
+            requests: { cpu: 250m, memory: 512Mi }
+            limits: { cpu: "1", memory: 1Gi }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lakehouse-api
+  namespace: insurance-lakehouse
+spec:
+  selector: { app: lakehouse-api }
+  ports: [{ port: 80, targetPort: 8000 }]

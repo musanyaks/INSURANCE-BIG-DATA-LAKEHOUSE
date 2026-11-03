@@ -1,0 +1,12 @@
+# Streaming producers/consumers (used by the Kubernetes deployments)
+FROM python:3.12-slim
+
+RUN pip install --no-cache-dir "kafka-python-ng>=2.2.2" pandas numpy pyarrow PyYAML
+
+WORKDIR /opt/app
+COPY common/ ./common/
+COPY ingestion/ ./ingestion/
+COPY streaming/ ./streaming/
+
+ENV PYTHONUNBUFFERED=1
+CMD ["sleep", "infinity"]
