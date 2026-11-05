@@ -45,7 +45,7 @@ def main() -> dict:
     df, y = built
     X = _design(df)
 
-    strat = y if y.nunique() > 1 else None
+    strat = y if y.value_counts().min() >= 2 and y.nunique() > 1 else None
     X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, random_state=42,
                                               stratify=strat)  # kept for permutation importance
 

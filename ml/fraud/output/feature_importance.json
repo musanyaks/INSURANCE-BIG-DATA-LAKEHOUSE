@@ -1,42 +1,42 @@
 [
   {
     "feature": "log_claim_amount",
-    "importance": -0.04422
+    "importance": 0.1359
   },
   {
-    "feature": "prior_claims",
-    "importance": 0.03888
-  },
-  {
-    "feature": "log_premium",
-    "importance": 0.02764
-  },
-  {
-    "feature": "is_injury_peril",
-    "importance": 0.02036
+    "feature": "reported_lag_days",
+    "importance": 0.13038
   },
   {
     "feature": "night_indicator",
-    "importance": 0.02027
-  },
-  {
-    "feature": "driving_score",
-    "importance": -0.01188
+    "importance": 0.01214
   },
   {
     "feature": "payment_failure_rate",
-    "importance": -0.00636
+    "importance": 0.00305
+  },
+  {
+    "feature": "prior_claims",
+    "importance": -0.00259
   },
   {
     "feature": "product_Motor",
-    "importance": -0.00534
-  },
-  {
-    "feature": "product_Home",
-    "importance": -0.00295
+    "importance": -0.00173
   },
   {
     "feature": "product_Health",
-    "importance": 0.00175
+    "importance": -0.00098
+  },
+  {
+    "feature": "product_Home",
+    "importance": 0.00069
+  },
+  {
+    "feature": "log_premium",
+    "importance": -0.00052
+  },
+  {
+    "feature": "driving_score",
+    "importance": 0.00035
   }
 ]
