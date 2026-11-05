@@ -226,7 +226,7 @@ def build_claims_and_alerts(policies: pd.DataFrame, payments: pd.DataFrame) -> t
     fr = claims.policy_id.map(fail_rate).fillna(0.0).values
     agg = claims.policy_id.map(pol.driver_aggressiveness).fillna(0.35).values
     injury = claims.peril.isin(["Third-Party Injury", "Liability", "Burglary"]).astype(float)
-    z = (-5.60 + 3.00 * claims.severity_pct + 1.40 * (claims.reported_lag_days > 21)
+    z = (-6.40 + 3.00 * claims.severity_pct + 1.40 * (claims.reported_lag_days > 21)
          + 0.10 * np.clip(claims.reported_lag_days, 0, 30)
          + 0.90 * np.minimum(claims.prior_claims, 3) + 0.60 * injury
          + 0.90 * np.sqrt(np.clip(fr, 0, 1)) + 0.50 * agg)

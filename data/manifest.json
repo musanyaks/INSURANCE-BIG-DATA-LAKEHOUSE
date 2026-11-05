@@ -16,7 +16,7 @@
     "landing_payments": 75151,
     "landing_telematics": 118366
   },
-  "fraud_rate": 0.124,
+  "fraud_rate": 0.0641,
   "churn_rate": 0.1022,
   "total_premium": 7503285.66,
   "total_incurred": 3469618.46
